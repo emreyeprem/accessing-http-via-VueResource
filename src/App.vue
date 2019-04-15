@@ -5,13 +5,13 @@
                 <h1>Accessing Http</h1>
                 <div class="form-group">
                   <label>Username</label>
-                  <input class="form-control" type="text">
+                  <input class="form-control" type="text" v-model="user.username">
                 </div>
                 <div class="form-group">
                   <label>Mail</label>
-                  <input class="form-control" type="text">
+                  <input class="form-control" type="text" v-model="user.email">
                 </div>
-                <button class="btn btn-primary">Submit</button>
+                <button class="btn btn-primary" @click="submit">Submit</button>
             </div>
         </div>
     </div>
@@ -19,6 +19,22 @@
 
 <script>
     export default {
+        data() {
+           return {
+              user: {
+                username: '',
+                email: ''
+              }
+           };
+        },
+      methods: {
+        submit() {
+          this.$http.post('https://vuejs-http-35582.firebaseio.com/data.json', this.user)
+            .then(response => {
+               console.log(response)
+            });
+        }
+      }
     }
 </script>
 
