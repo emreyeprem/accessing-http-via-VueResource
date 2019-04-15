@@ -32,6 +32,8 @@
           this.$http.post('https://vuejs-http-35582.firebaseio.com/data.json', this.user)
             .then(response => {
                console.log(response)
+            }, error => {
+               console.log(error)
             });
         }
       }
