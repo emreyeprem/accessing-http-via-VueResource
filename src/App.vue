@@ -45,7 +45,12 @@
          fetchData() {
            this.$http.get('https://vuejs-http-35582.firebaseio.com/data.json').then(response => {
              return response.json()
-           }).then(data => console.log(data));
+           }).then(data => {const resultArray = [];
+              for (let key in data) {
+              resultArray.push(data[key]);
+              }
+              this.user = resultArray; 
+              });
          }
       }
     }
