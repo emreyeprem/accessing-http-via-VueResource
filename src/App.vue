@@ -36,7 +36,7 @@
         },
       methods: {
         submit() {
-          this.$http.post('/sendData', this.user)
+          this.$http.post('', this.user)
             .then(response => {
                console.log(response)
             }, error => {
