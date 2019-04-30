@@ -13,6 +13,8 @@
                 </div>
                 <button class="btn btn-primary" @click="submit">Submit</button>
                 <hr>
+                  <input class="form-control" type="text" v-model="node">
+                <br><br/>  
                 <button class="btn btn-primary" @click="fetchData">Get Data</button>
                 <br><br>
                 <ul class="list-group">
@@ -32,7 +34,8 @@
                 email: ''
               },
                users: [],
-               resource: {}
+               resource: {},
+               node: 'data'
            };
         },
       methods: {
@@ -43,22 +46,40 @@
           //   }, error => {
           //      console.log(error)
           //   });
-          //the code above succesfully send new user to firebase, the below code is an alternative way.
-          this.resource.save({}, this.user);
+          //the code above succesfully send new user to firebase, the below line code is an alternative way.
+
+          //this.resource.save({}, this.user);         // alternative way to send user to database
+
+          this.resource.saveAlt(this.user);
         },
          fetchData() {
-           this.$http.get('data.json').then(response => {
-             return response.json()
-           }).then(data => {const resultArray = [];
-              for (let key in data) {
-              resultArray.push(data[key]);
-              }
-              this.users = resultArray;
-              });
+           // this.$http.get('data.json').then(response => {
+           //   return response.json()
+           // }).then(data => {const resultArray = [];
+           //    for (let key in data) {
+           //    resultArray.push(data[key]);
+           //    }
+           //    this.users = resultArray;
+           //    });
+           // the code above execute http request to database.
+           // the code below is an alternative way to execute http request to database.
+             this.resource.getData({node: this.node})
+             .then(response => {
+               return response.json()
+             }).then(data => {const resultArray = [];
+                for (let key in data) {
+                resultArray.push(data[key]);
+                }
+                this.users = resultArray;
+                });
          }
       },
       created() {
-        this.resource = this.$resource('data.json');
+        const customActions = {
+          saveAlt : {method:'POST', url:'alternative.json'},
+          getData : {method:'GET'}
+        }
+        this.resource = this.$resource('{node}.json', {}, customActions);
       }
     }
 </script>
