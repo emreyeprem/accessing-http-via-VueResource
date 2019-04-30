@@ -36,7 +36,7 @@
         },
       methods: {
         submit() {
-          this.$http.post('https://vuejs-http-35582.firebaseio.com/data.json', this.user)
+          this.$http.post('/sendData', this.user)
             .then(response => {
                console.log(response)
             }, error => {
@@ -44,7 +44,7 @@
             });
         },
          fetchData() {
-           this.$http.get('https://vuejs-http-35582.firebaseio.com/data.json').then(response => {
+           this.$http.get('').then(response => {
              return response.json()
            }).then(data => {const resultArray = [];
               for (let key in data) {
