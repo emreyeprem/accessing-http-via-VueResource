@@ -13,7 +13,8 @@
                 </div>
                 <button class="btn btn-primary" @click="submit">Submit</button>
                 <hr>
-                <button class="btn btn-secondary" @click="fetchData">Get Data</button>
+                <button class="btn btn-primary" @click="fetchData">Get Data</button>
+                <br><br>
                 <ul class="list-group">
                   <li class="list-group-item" v-for="u in users">{{ u.username }} - {{ u.email }}</li>
                 </ul>
@@ -49,7 +50,7 @@
               for (let key in data) {
               resultArray.push(data[key]);
               }
-              this.user = resultArray; 
+              this.users = resultArray;
               });
          }
       }
